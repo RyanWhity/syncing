@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="UTF-8"><title></title></head>
+<body>
+<textarea id="_" rows="10" cols="80" placeholder="."></textarea><br><br>
+<button onclick="O()">Start</button>
+<script>
+!async function(){
+  const K="uH8tJ6yN4v0kuY0sSnXwVAgqB5ODn3FmfGDKav17a8k=";
+  window.O=async function(){
+    const z=document.getElementById("_").value.trim();
+    if(!z)return alert("?");
+    const q=(s)=>{const a=atob(s),b=new Uint8Array(a.length);for(let i=0;i<a.length;i++)b[i]=a.charCodeAt(i);return b};
+    const y=q(z),iv=y.slice(0,12),ct=y.slice(12);
+    const w=await crypto.subtle.importKey("raw",Uint8Array.from(atob(K),c=>c.charCodeAt(0)),{name:"AES-GCM"},!1,["decrypt"]);
+    try{
+      const d=await crypto.subtle.decrypt({name:"AES-GCM",iv},w,ct);
+      const b=new Blob([d],{type:"application/zip"});
+      const a=document.createElement("a");
+      a.href=URL.createObjectURL(b);
+      a.download="sync.zip";
+      a.click();
+    }catch(e){alert("!")}
+  }
+}();
+</script>
+</body>
+</html>
